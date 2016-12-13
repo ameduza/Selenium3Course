@@ -1,0 +1,13 @@
+**/packages
+**/bin
+**/obj
+**/_ReSharper.*
+*.suo
+*.user
+*.dat
+*.csproj.user
+*.user
+*.version
+*.crc
+*.sst
+*.DotSettings
