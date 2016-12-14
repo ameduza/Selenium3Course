@@ -21,11 +21,8 @@ namespace Selenium2
         public void Start()
         {
             driver = new ChromeDriver();
-            driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(5));
+            //driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(5));
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-
-            driverFf = new FirefoxDriver();
-            waitFF = new WebDriverWait(driverFf, TimeSpan.FromSeconds(11));
         }
 
         [Test]
@@ -38,19 +35,22 @@ namespace Selenium2
         }
 
         [Test]
-        public void FfTest()
+        public void LiteCardLogin()
         {
-            driverFf.Url = "http://www.google.com/";
-            driverFf.FindElement(By.Name("q")).SendKeys("webdriver");
-            driverFf.FindElement(By.Name("btnG")).Click();
-            waitFF.Until(ExpectedConditions.TitleIs("webdriver - Поиск в Google"));
+            driver.Navigate().GoToUrl("http://localhost/litecard/admin");
+            driver.FindElement(By.Name("username")).SendKeys("admin");
+            driver.FindElement(By.Name("password")).SendKeys("admin");
+            driver.FindElement(By.Name("login")).Click();
+            //  " find You are now logged in as admin" message 
+            driver.FindElement(By.ClassName("success"));
+                
 
         }
 
         [TearDown]
         public void stop()
         {
-            driver.Quit();
+            if (driver != null) driver.Quit();
             driver = null;
         }
     }
