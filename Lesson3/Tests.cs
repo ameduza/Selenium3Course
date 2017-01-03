@@ -35,7 +35,6 @@ namespace Lesson3
             _driver.Navigate().GoToUrl("http://localhost/litecard/admin");
             _wait.Until(ExpectedConditions.TitleIs("My Store"));
             LoginPage loginPage = new LoginPage(_driver);
-            //_wait.Until(loginPage._userNameElement.Displayed);
 
             AdminPage adminPage = loginPage.DoLogin(@"admin", @"admin");
             int menuItemsCount = adminPage.GetMainMenuItemsCount();
@@ -51,6 +50,23 @@ namespace Lesson3
                     adminPage.ClickSubMenuItem(n);
                     Assert.True(adminPage.IsH1Exists());
                 }
+            }
+        }
+
+        [Test]
+        public void CheckGoodsStickers()
+        {
+            //Сделайте сценарий, проверяющий наличие стикеров у всех товаров в учебном приложении litecart на главной странице. 
+            //Стикеры -- это полоски в левом верхнем углу изображения товара, на которых написано New или Sale или что-нибудь другое. 
+            //Сценарий должен проверять, что у каждого товара имеется ровно один стикер.
+            _driver.Url = "http://localhost/litecard/en/";
+            _wait.Until(ExpectedConditions.TitleIs("Online Store | My Store"));
+
+            MainPage mainPage = new MainPage(_driver);
+            IList<IWebElement> productsList = mainPage.GetProductsList(_driver);
+            foreach (var product in productsList)
+            {
+                Assert.That(1, Is.EqualTo(mainPage.GetProductStickerCount(product)));
             }
         }
 
