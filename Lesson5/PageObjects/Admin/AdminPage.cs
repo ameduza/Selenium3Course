@@ -14,14 +14,17 @@ namespace Lesson3.PageObjects
     public class AdminPage
     {
         private IWebDriver _driver;
+        private WebDriverWait _wait; 
         private readonly By _mainMenuListLocator = By.XPath("//li[@id='app-']");
         private readonly By _subMenuListLocator = By.XPath("//ul[@class='docs']/li");
         private readonly By _h1Locator = By.XPath("//h1");
         private readonly By _countriesLocator = By.XPath("//li[@id='app-'][3]");
+        private readonly By _geoZonesLocator = By.XPath("//li[@id='app-'][6]");
 
-        public AdminPage(IWebDriver driver)
+        public AdminPage(IWebDriver driver, WebDriverWait wait)
         {
             _driver = driver;
+            _wait = wait;
             Init();
         }
 
@@ -84,7 +87,15 @@ namespace Lesson3.PageObjects
         internal A_CountriesPage OpenCountries()
         {
             _driver.FindElement(_countriesLocator).Click();
-            return new A_CountriesPage(_driver);
+            _wait.Until(ExpectedConditions.TitleIs("Countries | My Store"));
+            return new A_CountriesPage(_driver, _wait);
+        }
+
+        internal A_GeoZonesPage OpenGeoZones()
+        {
+            _driver.FindElement(_geoZonesLocator).Click();
+            _wait.Until(ExpectedConditions.TitleIs("Geo Zones | My Store"));
+            return new A_GeoZonesPage(_driver, _wait);
         }
     }
 }

@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Base.cs" />
     <Compile Include="PageObjects\Admin\AdminPage.cs" />
+    <Compile Include="PageObjects\Admin\A_GeoZonesPage.cs" />
     <Compile Include="PageObjects\Admin\A_CountriesPage.cs" />
     <Compile Include="PageObjects\Admin\LoginPage.cs" />
     <Compile Include="PageObjects\MainPage.cs" />

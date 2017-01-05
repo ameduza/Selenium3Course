@@ -19,7 +19,7 @@ namespace Lesson5
     public class Base
     {
 
-        public bool IsListSortedAsc(List<string> listToCheck)
+        public bool IsListSortedAsc(IEnumerable<string> listToCheck)
         {
             var l = new List<string>(listToCheck);
             l.Sort();
