@@ -1,30 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using NUnit.Framework;
-using NUnit.Framework.Internal;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Remote;
-using Lesson3.PageObjects;
-using Lesson5;
-using Lesson5.PageObjects.Admin;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
+
 
 namespace Lesson5
 {
     public class Base
     {
-
-        public bool IsListSortedAsc(IEnumerable<string> listToCheck)
+        protected static bool IsListSortedAsc(IEnumerable<string> listToCheck)
         {
             var l = new List<string>(listToCheck);
             l.Sort();
             return l.SequenceEqual(listToCheck);
         }
 
+        protected static string Argb2RgbaFormat(Color c)
+        {
+            return String.Format("rgba({0}, {1}, {2}, {3})", c.R, c.G, c.B, 1);  // вместо c.A пришслось вписать 1
+        }
     }
 }

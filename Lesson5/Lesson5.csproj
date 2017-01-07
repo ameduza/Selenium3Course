@@ -66,6 +66,8 @@
     <Compile Include="PageObjects\Admin\A_CountriesPage.cs" />
     <Compile Include="PageObjects\Admin\LoginPage.cs" />
     <Compile Include="PageObjects\MainPage.cs" />
+    <Compile Include="PageObjects\ProductPage.cs" />
+    <Compile Include="Product.cs" />
     <Compile Include="Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
