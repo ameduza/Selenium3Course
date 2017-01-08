@@ -9,7 +9,7 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 
-namespace Lesson5.PageObjects
+namespace Lesson5
 {
     public class ProductPage
     {

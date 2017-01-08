@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using Lesson5.PageObjects.Admin;
+﻿using System.Collections.Generic;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Support.PageObjects;
+using OpenQA.Selenium.Support.UI;
 
-namespace Lesson3.PageObjects
+namespace Lesson5
 {
     public class AdminPage
     {

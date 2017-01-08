@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Lesson5;
-using Lesson5.PageObjects;
+﻿using System.Collections.Generic;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 
-namespace Lesson3.PageObjects
+namespace Lesson5
 {
     public class MainPage
     {

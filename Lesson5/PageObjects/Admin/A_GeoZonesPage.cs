@@ -7,7 +7,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 
-namespace Lesson5.PageObjects.Admin
+namespace Lesson5
 {
     class A_GeoZonesPage
     {

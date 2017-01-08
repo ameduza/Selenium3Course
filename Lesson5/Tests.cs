@@ -9,14 +9,12 @@ using NUnit.Framework;
 using NUnit.Framework.Internal;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
-using Lesson3.PageObjects;
 using Lesson5;
-using Lesson5.PageObjects.Admin;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
 
-namespace Lesson3
+namespace Lesson5
 {
     [TestFixture]
     public class Tests : Base
@@ -168,7 +166,7 @@ namespace Lesson3
 
             // уточнить что нужно сделать чтобы сравнивать целиком экземпляры классов:
             // https://github.com/nunit/docs/wiki/EqualConstraint  Notes 1.
-            //Assert.That(productMainPage == productProductPage, @"Продукты не равны");
+            //Assert.That(productMainPage == productProductPage, @"Продукты не равны");   // эти проверки падают: http://screencast.com/t/XNCd0eWhsAZN
             //Assert.That(productMainPage.Equals(productProductPage), @"Продукты не равны");
 #endregion           
         }
