@@ -17,7 +17,7 @@ using OpenQA.Selenium.Support.UI;
 namespace Lesson6
 {
     [TestFixture]
-    public class Tests : Base
+    public class Tests
     {
         private IWebDriver _driver;
         private WebDriverWait _wait;
@@ -63,7 +63,7 @@ namespace Lesson6
                 City = "Colorado village",
                 Country = "United States",
                 State = "Colorado",
-                Email = GetRandomString(10) + "@ya.ru",
+                Email = Base.GetRandomString(10) + "@ya.ru",
                 Phone = 9119111122,
                 Password = "qwerty123"
             };
@@ -75,6 +75,65 @@ namespace Lesson6
                 .DoLogin(testUser.Email, testUser.Password)
                 .DoLogout();
         }
+
+        [Test]
+        public void Admin_AddProduct()
+        {
+//Задание 12. Сделайте сценарий добавления товара
+//Сделайте сценарий для добавления нового товара (продукта) в учебном приложении litecart (в админке).
+
+//Для добавления товара нужно открыть меню Catalog, в правом верхнем углу нажать кнопку "Add New Product", заполнить поля с информацией о товаре и сохранить.
+
+//Достаточно заполнить только информацию на вкладках General, Information и Prices. Скидки (Campains) на вкладке Prices можно не добавлять.
+// есть выпадающие списки с одним вариантом выбора -- конечно их можно пропустить
+//После сохранения товара нужно убедиться, что он появился в каталоге (в админке). Клиентскую часть магазина можно не проверять.
+            _driver.Navigate().GoToUrl("http://localhost/litecard/admin");
+            _wait.Until(ExpectedConditions.TitleIs("My Store"));
+
+            var testProduct = new Product()
+            {
+                Status = "Enabled",
+                Name = "Test Duck_" + Base.GetRandomString(10),  // можно timestamp вкрутить, как вариант
+                Code = "test",
+                Categories = new[] { "Rubber Ducks", "Subcategory" },
+                DefaultCategory = "Subcategory",
+                ProductGroups = new [] { "Female", "Unisex" },
+                Quantity = 10,
+                SoldOutStatus = "Temporary sold out",
+                ImagesUrls = new [] {@"c:\\TEMP\\test_duck.png"},
+                DateValidFrom = "01122016",
+                DateValidTo = "01122017",
+                
+                //Information 
+                Manufacturer = "ACME Corp.",
+                Keywords = "keywords data text",
+                ShortDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n Suspendisse sollicitudin ante massa, eget ornare libero porta congue. Cras scelerisque dui non consequat sollicitudin. Sed pretium tortor ac auctor molestie. Nulla facilisi. ",
+                HeadTitle = "Head title text",
+                MetaDescription = "meta text",
+                //Prices 
+                PurchasePriceValue = 9.5f,
+                PurchasePriceCurrency = "Euros",
+                PriceUsd = 11,
+                PriceEur = 10.12f,
+            };
+            
+            
+            var newPoductPage = new LoginPage(_driver, _wait)
+                .DoLogin(@"admin", @"admin")
+                .OpenCatalog()
+                .OpenAddNewProduct();
+            newPoductPage
+                .FillNewProductData(testProduct);
+
+            //После сохранения товара нужно убедиться, что он появился в каталоге (в админке). Клиентскую часть магазина можно не проверять.
+            var productList = new A_CatalogPage(_driver, _wait)
+                .SearchProduct(testProduct.Name)
+                .GetProductNamesList();
+            Assert.That(productList.Count == 1, "Продукт не найден");  // уникальность имени обеспечивается функцией Base.GetRandomString, на поиск товара в списке уже не хватило сил :)
+        }
+
+
 
         [TearDown]
         public void Stop()

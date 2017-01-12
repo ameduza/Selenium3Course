@@ -12,6 +12,7 @@ namespace Lesson6
         private readonly By _mainMenuListLocator = By.XPath("//li[@id='app-']");
         private readonly By _subMenuListLocator = By.XPath("//ul[@class='docs']/li");
         private readonly By _h1Locator = By.XPath("//h1");
+        private readonly By _catalogLocator = By.XPath("//li[@id='app-'][2]");
         private readonly By _countriesLocator = By.XPath("//li[@id='app-'][3]");
         private readonly By _geoZonesLocator = By.XPath("//li[@id='app-'][6]");
 
@@ -76,6 +77,13 @@ namespace Lesson6
                 return false;
             }
             return true;
+        }
+
+        internal A_CatalogPage OpenCatalog()
+        {
+            _driver.FindElement(_catalogLocator).Click();
+            _wait.Until(ExpectedConditions.TitleIs("Catalog | My Store"));
+            return new A_CatalogPage(_driver, _wait);
         }
 
         internal A_CountriesPage OpenCountries()
