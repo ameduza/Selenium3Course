@@ -8,7 +8,7 @@ using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
 
-namespace Lesson6
+namespace Lesson7
 {
     public class A_ProductPage //: Base
     {
@@ -137,7 +137,7 @@ namespace Lesson6
             _metaDescription.SendKeys(p.MetaDescription);
 
             OpenTab("Prices");
-            Base.SendKeys(_purchasePriceValue, p.PurchasePriceValue.ToString(CultureInfo.InvariantCulture));
+            Base.SetText(_purchasePriceValue, p.PurchasePriceValue.ToString(CultureInfo.InvariantCulture));
             new SelectElement(_purchasePriceCurrency).SelectByText(p.PurchasePriceCurrency);
             _priceUsd.SendKeys(p.PriceUsd.ToString(CultureInfo.InvariantCulture));
             _priceEur.SendKeys(p.PriceEur.ToString(CultureInfo.InvariantCulture));
