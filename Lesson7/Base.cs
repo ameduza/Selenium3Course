@@ -6,6 +6,8 @@ using System.Linq;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.IE;
+using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 
 
@@ -16,11 +18,18 @@ namespace Lesson7
         protected IWebDriver _driver;
         protected WebDriverWait _wait;
         private const int _waitDefaultTime = 10;
+        protected const string baseUrl = "http://http://192.168.1.103/";
         
         [SetUp]
         public void Start()
         {
-            _driver = new ChromeDriver();
+            //_driver = new ChromeDriver();
+            var _caps = new DesiredCapabilities();
+            _caps.SetCapability("browserName", "firefox");
+            //_caps.SetCapability("platform", @"WIN8_1");
+            Uri hubUri = new Uri("http://192.168.1.103:4444/wd/hub");
+
+            _driver = new RemoteWebDriver(hubUri, _caps);
             _driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
 
             _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(_waitDefaultTime));

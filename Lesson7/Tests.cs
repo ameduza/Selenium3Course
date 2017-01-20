@@ -32,7 +32,7 @@ namespace Lesson7
 
 //5) открыть корзину (в правом верхнем углу кликнуть по ссылке Checkout)
 //6) удалить все товары из корзины один за другим, после каждого удаления подождать, пока внизу обновится таблица            
-            _driver.Navigate().GoToUrl(@"http://localhost/litecard/en/");
+            _driver.Navigate().GoToUrl(baseUrl + @"litecard/en/");
             _wait.Until(ExpectedConditions.TitleIs(@"Online Store | My Store"));
             for (int i = 0; i < 3; i++)
             {
