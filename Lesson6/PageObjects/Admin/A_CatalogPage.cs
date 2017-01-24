@@ -27,13 +27,9 @@ namespace Lesson6
         {
             _driver = driver;
             _wait = wait;
-            Init();
-        }
-        private void Init()
-        {
             PageFactory.InitElements(_driver, this);
-        }
 
+        }
         public A_ProductPage OpenAddNewProduct()
         {
             _addNewProductLink.Click();

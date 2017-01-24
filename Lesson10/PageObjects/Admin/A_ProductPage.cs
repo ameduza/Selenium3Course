@@ -13,6 +13,7 @@ namespace Lesson10
 {
     public class A_ProductPage : Base
     {
+        public readonly By h1Locator = By.XPath("//h1");
 
 #region Navigation tabs
         [FindsBy(How = How.CssSelector, Using = @"ul.index li:nth-child(1) a")]
@@ -94,11 +95,8 @@ namespace Lesson10
         {
             _driver = driver;
             _wait = wait;
-            Init();
-        }
-        private void Init()
-        {
             PageFactory.InitElements(_driver, this);
+
         }
 
         private A_CatalogPage DoSave()
@@ -108,7 +106,8 @@ namespace Lesson10
             _wait.Until(ExpectedConditions.TitleIs("Catalog | My Store"));
             return new A_CatalogPage(_driver, _wait);
         }
-        private A_CatalogPage DoCancel()
+
+        public A_CatalogPage DoCancel()
         {
             _cancelButton.Click();
 
@@ -116,11 +115,8 @@ namespace Lesson10
             return new A_CatalogPage(_driver, _wait);
         }
 
-
-
         internal A_CatalogPage FillNewProductData(Product testProduct)
         {
-            Init();
             var p = testProduct;
             SetStatus(p.Status);
             _name.SendKeys(p.Name);
@@ -153,6 +149,19 @@ namespace Lesson10
             _priceEur.SendKeys(p.PriceEur.ToString(CultureInfo.InvariantCulture));
             
             return DoSave();
+        }
+
+        public bool IsH1Exists()
+        {
+            try
+            {
+                _driver.FindElement(h1Locator);
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+            return true;
         }
 
         private void SetStatus(string status)

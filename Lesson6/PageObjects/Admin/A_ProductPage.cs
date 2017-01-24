@@ -91,13 +91,8 @@ namespace Lesson6
         {
             _driver = driver;
             _wait = wait;
-            Init();
-        }
-        private void Init()
-        {
             PageFactory.InitElements(_driver, this);
         }
-
         private A_CatalogPage DoSave()
         {
             _saveButton.Click();
@@ -110,7 +105,6 @@ namespace Lesson6
 
         internal A_CatalogPage FillNewProductData(Product testProduct)
         {
-            Init();
             var p = testProduct;
             SetStatus(p.Status);
             _name.SendKeys(p.Name);

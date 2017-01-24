@@ -19,7 +19,7 @@ namespace Lesson10
     {
 
         [Test]
-        public void TestBrowserLogs()
+        public void Admin_TestBrowserLogs()
         {
 //Задание 17. Проверьте отсутствие сообщений в логе браузера
 //Сделайте сценарий, который проверяет, не появляются ли в логе браузера сообщения при открытии страниц в учебном приложении, а именно -- страниц товаров в каталоге в административной панели.
@@ -31,16 +31,32 @@ namespace Lesson10
 //3) последовательно открывать страницы товаров и проверять, не появляются ли в логе браузера сообщения (любого уровня)            
             _driver.Navigate().GoToUrl("http://localhost/litecard/admin");
             new LoginPage(_driver, _wait).DoLogin("admin", "admin");
-            _driver.Navigate().GoToUrl("http://localhost/litecard/admin/?app=catalog&doc=catalog&category_id=1");
+            new AdminPage(_driver, _wait).OpenCatalog();
             _wait.Until(ExpectedConditions.TitleIs("Catalog | My Store"));
-            var catalogPage = new A_CatalogPage(_driver, _wait).GetProductNamesList();
+            //Open all subfolders to get complete products list
+            var catalogPage = new A_CatalogPage(_driver, _wait);
+            int closedFoldersCount = 0;
+            while (catalogPage.GetClosedFoldersList().Count > 0)
+            {
+                _driver.FindElement(catalogPage.folderClosedLocator).Click();
+                closedFoldersCount++;
+            }
+            // Get products list
+            var products = catalogPage.GetProductsList();
+            //3) последовательно открывать страницы товаров и проверять, не появляются ли в логе браузера сообщения (любого уровня)            
+            for (int i = 0; i < products.Count; i++)
+            {
+                var productPage = catalogPage.OpenProductByPosition(i);
+                var browserLogs = _driver.Manage().Logs.GetLog("browser");
+                var logEntriesCount = browserLogs.Count;
+                Assert.That(logEntriesCount, Is.EqualTo(0), "При открытии продукта были обнаружены ошибки в логах браузера. Содержимое: {0}", browserLogs);
+                productPage.DoCancel();
+            }
 
-
-            // Assert
         }
 
         [Test]
-        public void TestLogs()
+        public void TryScreenshot()
         {
             _driver.Navigate().GoToUrl("http://google.com");
             _driver.FindElement(By.CssSelector("input#lst-ib")).SendKeys("status bat");
