@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace Lesson8
     {
 
         [Test]
-        public void CreateNewCountyExternalLinksTest()
+        public void Admin_CreateNewCountryExternalLinksTest()
         {
 //Задание 14. Проверьте, что ссылки открываются в новом окне
 //Сделайте сценарий, который проверяет, что ссылки на странице редактирования страны открываются в новом окне.
@@ -42,20 +43,18 @@ namespace Lesson8
             var links = newCountryPage.GetExternalLinks();
             foreach (var l in links)
             {
-                var windowHandles = _driver.WindowHandles;
+                var handlesCount = _driver.WindowHandles.Count;
+                var mainwindowHandle = _driver.CurrentWindowHandle;
                 l.Click();
-                
-                
-                
-                //_wait.Until();
-
-                // Assert
+                //TODO: обернуть получение хэндла нового окна в функцию
+                _wait.Until(driver => driver.WindowHandles.Count > handlesCount);
+                var handles = _driver.WindowHandles;
+                var newWindowHandle = handles.FirstOrDefault(h => !h.Equals(mainwindowHandle));
+                _driver.SwitchTo().Window(newWindowHandle);
+                _driver.Close();
+                _driver.SwitchTo().Window(mainwindowHandle);
             }
         }
 
-        //public bool CC(IWebDriver driver, WebDriverWait wait, IReadOnlyCollection<string> initialHandleCount)
-        //{
-
-        //}
     }
 }
